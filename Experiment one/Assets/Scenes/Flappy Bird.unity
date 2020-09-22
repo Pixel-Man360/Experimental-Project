@@ -586,7 +586,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 5
@@ -5613,6 +5613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pillar: {fileID: 8424259124572089531, guid: 67194fc3aa93747489eabc2ad42d6d73, type: 3}
   _spawnTime: 1.7
+  _currentTime: 0
 --- !u!114 &2115562379
 MonoBehaviour:
   m_ObjectHideFlags: 0

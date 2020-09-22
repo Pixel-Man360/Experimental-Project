@@ -20,8 +20,9 @@ public class player : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
       
-        GameManagerFB.StopSpawn += OnStart;
-        GameManagerFB.StartSpawn += OnPlaying;
+        GameManagerFB.PlayerOnStart += OnStart;
+        GameManagerFB.PlayerOnPlaying+= OnPlaying;
+       
         
     }
 

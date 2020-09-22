@@ -8,6 +8,10 @@ public class GameManagerFB : MonoBehaviour
 
     public static event Action StopSpawn;
     public static event Action StartSpawn;
+    public static event Action PlayerOnStart;
+    public static event Action PlayerOnPlaying;
+
+    private bool _gameStart = false;
 
     public enum GameState
     {
@@ -16,15 +20,26 @@ public class GameManagerFB : MonoBehaviour
         End
 
     }
+    
+    public enum Difficulties
+    {
+        Easy,
+        Medium,
+        Hard
+
+    }
 
     GameState currentState;
+    Difficulties currentDifficulty;
 
     void Start()
     {
         currentState = GameState.Start;
 
+        currentDifficulty = Difficulties.Easy;
+
         player.onDead += ChangeToEnd;
-        player.onPlaying += ChangeToPlay;
+        
 
 
     }
@@ -32,32 +47,72 @@ public class GameManagerFB : MonoBehaviour
    
     void Update()
     {
-        switch(currentState)
-        {
-            case GameState.Start:
+        
+        CurrentGameState();
+        CheckIfStarted();
+        Difficulty();
 
-                if (StopSpawn != null)
-                    StopSpawn();
+       
+    } 
+
+    void CheckIfStarted()
+    {
+       if((Input.GetKeyDown(KeyCode.Space) && _gameStart == false) || (Input.GetMouseButtonDown(0) && _gameStart == false))
+         {
+           ChangeToPlay();
+           _gameStart = true;
+         }
+    }
+
+    void CurrentGameState()
+     {
+      switch(currentState)
+        {
+            case GameState.Start: 
+
+                if(PlayerOnStart != null)
+                 PlayerOnStart();
 
                 break;
 
 
             case GameState.Playing:
+                
+                
+                if(StartSpawn != null)
+                 StartSpawn();
 
-                if (StartSpawn != null)
-                    StartSpawn();
+                if(PlayerOnPlaying != null)
+                 PlayerOnPlaying();
 
                 break;
 
 
             case GameState.End:
 
-                if (StopSpawn != null)
-                    StopSpawn();
+                
+                if(StopSpawn != null)
+                 StopSpawn();
 
                 break;
 
         }
+     }
+     
+    void Difficulty()
+    {
+       switch(currentDifficulty)
+       {
+        case Difficulties.Easy:
+         break;
+     
+        case Difficulties.Medium:
+         break;
+
+        case Difficulties.Hard:
+         break;
+       }
+     
     }
 
     void ChangeToStart()
