@@ -22,6 +22,8 @@ public class PauseMenuFB : MonoBehaviour
 
     public void Restart()
     {
+      _pauseMenu.SetActive(false);
        SceneManager.LoadScene("Flappy Bird");
+       Time.timeScale = 1f;
    }
 }

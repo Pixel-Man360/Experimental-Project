@@ -20,14 +20,25 @@ public class PillarSpawner : MonoBehaviour
 
          _currentTime = 1.4f;
 
-        GameManagerFB.StopSpawn += StopSpawing;
-
-        GameManagerFB.StartSpawn += StartSpawning;
+        
 
        
         
     }
+    
+     void OnEnable()
+      {
+       GameManagerFB.StopSpawn += StopSpawing;
 
+       GameManagerFB.StartSpawn += StartSpawning;
+      }
+
+      void OnDisable()
+     {
+       GameManagerFB.StopSpawn -= StopSpawing;
+
+       GameManagerFB.StartSpawn -= StartSpawning;
+     }
  
     void Spawn()
     {   

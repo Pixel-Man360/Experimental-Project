@@ -13,6 +13,8 @@ public class GameManagerFB : MonoBehaviour
 
     private bool _gameStart = false;
 
+    [SerializeField] private GameObject _ui;
+
     public enum GameState
     {
         Start,
@@ -38,12 +40,22 @@ public class GameManagerFB : MonoBehaviour
 
         currentDifficulty = Difficulties.Easy;
 
-        player.onDead += ChangeToEnd;
+        
         
 
 
     }
 
+    void OnEnable()
+    {
+      player.onDead += ChangeToEnd;
+      _ui.SetActive(true);
+    }
+    
+    void OnDisable()
+    {
+     player.onDead -= ChangeToEnd;
+    }
    
     void Update()
     {
@@ -61,6 +73,7 @@ public class GameManagerFB : MonoBehaviour
          {
            ChangeToPlay();
            _gameStart = true;
+           _ui.SetActive(false);
          }
     }
 
@@ -80,10 +93,10 @@ public class GameManagerFB : MonoBehaviour
                 
                 
                 if(StartSpawn != null)
-                 StartSpawn();
+                  StartSpawn();
 
                 if(PlayerOnPlaying != null)
-                 PlayerOnPlaying();
+                  PlayerOnPlaying();
 
                 break;
 
@@ -92,7 +105,7 @@ public class GameManagerFB : MonoBehaviour
 
                 
                 if(StopSpawn != null)
-                 StopSpawn();
+                  StopSpawn();
 
                 break;
 

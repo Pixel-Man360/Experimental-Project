@@ -16,16 +16,19 @@ public class player : MonoBehaviour
     public static event Action onDead;
     public static event Action onPlaying;
 
-    void Start()
+ 
+    void OnEnable()
     {
-        _rb = GetComponent<Rigidbody2D>();
-      
-        GameManagerFB.PlayerOnStart += OnStart;
-        GameManagerFB.PlayerOnPlaying+= OnPlaying;
-       
-        
+       GameManagerFB.PlayerOnStart += OnStart;
+       GameManagerFB.PlayerOnPlaying += OnPlaying;
+       _rb = GetComponent<Rigidbody2D>();
+       _once = true;
     }
-
+    void OnDisable()
+    {
+      GameManagerFB.PlayerOnStart -= OnStart;
+      GameManagerFB.PlayerOnPlaying -= OnPlaying;
+    }
  
     void Update()
     {
@@ -35,6 +38,7 @@ public class player : MonoBehaviour
             _once = false;
             if (onPlaying != null)
                 onPlaying();
+           OnPlaying();
         }
 
         if(!_hit)
@@ -78,7 +82,7 @@ public class player : MonoBehaviour
 
     void OnStart()
     {
-        _hit = true;
+        
         _rb.bodyType = RigidbodyType2D.Static;
         _particle.Stop();
 

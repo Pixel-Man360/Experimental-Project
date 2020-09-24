@@ -11,9 +11,21 @@ public class UIManagerFB : MonoBehaviour
     {
         _scoreText = GameObject.Find("Canvas").GetComponentInChildren<Text>();
 
-        ScoreFB.scoreVal += UpdateScore;
+        
+    }
 
-        player.onDead += IsPlayerDead;
+    void OnEnable()
+    {
+       ScoreFB.scoreVal += UpdateScore;
+
+       player.onDead += IsPlayerDead;
+    }
+
+    void OnDisable()
+    {
+      ScoreFB.scoreVal -= UpdateScore;
+
+      player.onDead -= IsPlayerDead;
     }
 
     void UpdateScore(object sender, EventArgs e)

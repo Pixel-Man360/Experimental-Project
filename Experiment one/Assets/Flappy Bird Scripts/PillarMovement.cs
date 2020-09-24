@@ -14,9 +14,19 @@ public class PillarMovement : MonoBehaviour
     {
         _isOver = false;
         _rb = GetComponent<Rigidbody2D>();
-        player.onDead += () => { _isOver = true; } ;
+        
     }
 
+    
+    void OnEnable()
+    {
+      player.onDead += IsDead;
+    }
+    
+    void OnDisable()
+    {
+      player.onDead -= IsDead;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -37,6 +47,11 @@ public class PillarMovement : MonoBehaviour
     {
         if (this.transform.position.x < -25f)
             Destroy(this.gameObject);
+    }
+
+    void IsDead()
+    {
+        _isOver = true;
     }
 
    
