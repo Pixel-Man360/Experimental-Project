@@ -10,6 +10,9 @@ public class GameManagerFB : MonoBehaviour
     public static event Action StartSpawn;
     public static event Action PlayerOnStart;
     public static event Action PlayerOnPlaying;
+    public static event Action OnEasy;
+    public static event Action OnMedium;
+    public static event Action OnHard;
 
     private bool _gameStart = false;
 
@@ -34,27 +37,27 @@ public class GameManagerFB : MonoBehaviour
     GameState currentState;
     Difficulties currentDifficulty;
 
-    void Start()
-    {
-        currentState = GameState.Start;
-
-        currentDifficulty = Difficulties.Easy;
-
-        
-        
-
-
-    }
 
     void OnEnable()
     {
+      currentState = GameState.Start;
+
+      currentDifficulty = Difficulties.Easy;
+
       player.onDead += ChangeToEnd;
+
+      UIManagerFB.ChangeToMedium += ChangeTomedium;
+
+      UIManagerFB.ChangeToHard += ChangeTohard;
+
       _ui.SetActive(true);
     }
     
     void OnDisable()
     {
      player.onDead -= ChangeToEnd;
+     UIManagerFB.ChangeToMedium -= ChangeTomedium;
+     UIManagerFB.ChangeToHard -= ChangeTohard; 
     }
    
     void Update()
@@ -120,9 +123,17 @@ public class GameManagerFB : MonoBehaviour
          break;
      
         case Difficulties.Medium:
+
+         if(OnMedium != null)
+          OnMedium();
+
          break;
 
         case Difficulties.Hard:
+          
+          if(OnHard != null)
+            OnHard();
+
          break;
        }
      
@@ -142,6 +153,15 @@ public class GameManagerFB : MonoBehaviour
     {
         currentState = GameState.End;
     }
+  
+    void ChangeTomedium()
+    {
+      currentDifficulty = Difficulties.Medium;
+    }
 
+    void ChangeTohard()
+    {
+      currentDifficulty = Difficulties.Hard;
+    }
     
 }

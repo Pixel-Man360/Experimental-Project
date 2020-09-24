@@ -21,17 +21,29 @@ public class PillarMovement : MonoBehaviour
     void OnEnable()
     {
       player.onDead += IsDead;
+
+      GameManagerFB.OnMedium += Medium;
+ 
+      GameManagerFB.OnHard += Hard;
+
+      _speed = 8f;
     }
     
     void OnDisable()
     {
+      GameManagerFB.OnMedium -= Medium;
+ 
+      GameManagerFB.OnHard -= Hard;
+
       player.onDead -= IsDead;
     }
-    // Update is called once per frame
+    
     void Update()
     {
         Movement();
         DestroyObject();
+
+       Debug.Log("Speed: " +_speed);
     }
 
     void Movement()
@@ -53,6 +65,15 @@ public class PillarMovement : MonoBehaviour
     {
         _isOver = true;
     }
+   
+    void Medium()
+    {
+      _speed = 10f;
+    }
 
+    void Hard()
+    {
+       _speed = 12.5f;
+    }
    
 }

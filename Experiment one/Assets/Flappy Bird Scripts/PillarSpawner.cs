@@ -6,7 +6,7 @@ using UnityEngine;
 public class PillarSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _pillar;
-    [SerializeField] private float _spawnTime = 1.7f;
+    [SerializeField] private float _spawnTime;
     [SerializeField] private float _currentTime;
     
 
@@ -17,13 +17,7 @@ public class PillarSpawner : MonoBehaviour
        // player.onDead += StopSpawing;
         
         //InvokeRepeating("Spawn", 1,_spawnTime);
-
-         _currentTime = 1.4f;
-
-        
-
-       
-        
+    
     }
     
      void OnEnable()
@@ -31,6 +25,14 @@ public class PillarSpawner : MonoBehaviour
        GameManagerFB.StopSpawn += StopSpawing;
 
        GameManagerFB.StartSpawn += StartSpawning;
+
+       GameManagerFB.OnMedium += Medium;
+ 
+       GameManagerFB.OnHard += Hard;
+
+       _currentTime = 1.4f;
+
+       _spawnTime = 2f;
       }
 
       void OnDisable()
@@ -68,6 +70,20 @@ public class PillarSpawner : MonoBehaviour
       _spawnTime = 0f;
     }
     
+   
+    void Medium()
+    {
+       _spawnTime = 1.35f;
+    }
 
+    void Hard()
+    {
+     _spawnTime = 0.9f;
+    }
+
+    void Update()
+    {
+        Debug.Log("SpawnTime: "+_spawnTime);
+    }
 
 }
