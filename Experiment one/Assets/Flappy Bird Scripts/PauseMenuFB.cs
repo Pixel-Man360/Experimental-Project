@@ -25,5 +25,10 @@ public class PauseMenuFB : MonoBehaviour
       _pauseMenu.SetActive(false);
        SceneManager.LoadScene("Flappy Bird");
        Time.timeScale = 1f;
-   }
+    }
+
+    public void MainMenu()
+    {
+      SceneManager.LoadScene("Main Menu");
+    }
 }

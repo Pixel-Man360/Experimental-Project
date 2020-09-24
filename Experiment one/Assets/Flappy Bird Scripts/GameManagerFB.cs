@@ -17,6 +17,7 @@ public class GameManagerFB : MonoBehaviour
     private bool _gameStart = false;
 
     [SerializeField] private GameObject _ui;
+    [SerializeField] private GameObject _gameOver;
 
     public enum GameState
     {
@@ -51,6 +52,8 @@ public class GameManagerFB : MonoBehaviour
       UIManagerFB.ChangeToHard += ChangeTohard;
 
       _ui.SetActive(true);
+    
+      _gameOver.SetActive(false);
     }
     
     void OnDisable()
@@ -109,7 +112,8 @@ public class GameManagerFB : MonoBehaviour
                 
                 if(StopSpawn != null)
                   StopSpawn();
-
+             
+               Invoke("GameOver", 1f);
                 break;
 
         }
@@ -162,6 +166,11 @@ public class GameManagerFB : MonoBehaviour
     void ChangeTohard()
     {
       currentDifficulty = Difficulties.Hard;
+    }
+
+    void GameOver()
+    {
+        _gameOver.SetActive(true);
     }
     
 }
