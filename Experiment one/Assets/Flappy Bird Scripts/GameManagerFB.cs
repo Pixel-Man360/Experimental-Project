@@ -113,7 +113,7 @@ public class GameManagerFB : MonoBehaviour
                 if(StopSpawn != null)
                   StopSpawn();
              
-               Invoke("GameOver", 1f);
+               Invoke("GameOver", 0.3f);
                 break;
 
         }

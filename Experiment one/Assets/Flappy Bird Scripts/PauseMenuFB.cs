@@ -7,6 +7,7 @@ public class PauseMenuFB : MonoBehaviour
 {
     [SerializeField] private GameObject _pauseMenu;
 
+    
 
     public void Pause()
     {
@@ -31,4 +32,6 @@ public class PauseMenuFB : MonoBehaviour
     {
       SceneManager.LoadScene("Main Menu");
     }
+
+    
 }
